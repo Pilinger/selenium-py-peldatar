@@ -8,4 +8,4 @@ elif age < 18 and drink == 'sör':
 elif age >= 60 and drink == 'kóla':
     print('A koffein megemelheti a vérnyomását.')
 else:
-    print('Parancsoljon a', drink + '.')
+    print('Parancsoljon, a', drink + '.')
