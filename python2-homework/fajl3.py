@@ -1,5 +1,5 @@
+l_adat = []
 with open('adat.txt', 'r') as f:
-    l_adat = []
     for line in f:
         l_adat.append(line)
 
@@ -12,6 +12,3 @@ for s in l_adat:
 
 with open('one_line.txt', 'w') as f_w:
     f_w.write(once_str)
-
-with open('one_line.txt', 'r') as f_r:
-    print(f_r.readline())
