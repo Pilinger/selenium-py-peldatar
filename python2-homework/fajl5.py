@@ -1,6 +1,6 @@
 first_line = True
 
-with open('adat.txt', 'r') as f: # opens adat.txt for reading (line by line)
+with open('adat.txt', 'r') as f:  # opens adat.txt for reading (line by line)
     for line in f:
         if first_line:  # checking if first line and opening for writing to truncate the file
             first_line = False
