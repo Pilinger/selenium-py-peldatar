@@ -18,6 +18,7 @@ items = driver.find_elements_by_xpath('//*[@id]')
 for item in items:
     if item.tag_name == 'button':
         item.click()
-        label = driver.find_element_by_id('result')
-        assert label.text == (item.id + ' was clicked')
+        label = driver.find_element_by_id('result').text
+        btn_str = item.text + ' was clicked'
+        assert label == btn_str
         break
