@@ -20,5 +20,5 @@ for item in items:
         item.click()
         label = driver.find_element_by_id('result').text
         btn_str = item.text + ' was clicked'
-        assert label == btn_str
+        assert(label == btn_str)
         break
