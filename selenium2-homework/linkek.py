@@ -11,11 +11,14 @@ os.system('docker-compose up -d')
 
 driver.get('http://localhost:9999')
 
+# getting the link elements
 links = driver.find_elements_by_xpath('//a')
 
+# initialising a new list, and appending the href-s
 list_links = []
 for link in links:
     list_links.append(link.get_attribute('href'))
 
+# writing the list separated by new lines
 with open('all_links.txt', 'w', encoding='utf-8') as all_links:
     all_links.write('\n'.join(list_links))
