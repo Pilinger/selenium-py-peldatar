@@ -10,11 +10,29 @@ import os
 # needed for sending Ctrl+Backspace for Search... input to get back the full table
 from selenium.webdriver.common.keys import Keys
 
+
+def check_cells(name, price):  # c) checking the modification of cells modifies the DOM structure
+    time.sleep(0.5)
+    tr_s = driver.find_elements_by_xpath('//tbody/tr')
+    row = tr_s[-1]  # getting the last row
+    cells = row.find_elements_by_tag_name('td')
+    cells[0].find_element_by_tag_name('input').clear()
+    time.sleep(0.5)
+    cells[0].find_element_by_tag_name('input').send_keys(name)
+    time.sleep(0.5)
+    cells[1].find_element_by_tag_name('input').clear()
+    time.sleep(0.5)
+    cells[1].find_element_by_tag_name('input').send_keys(price)
+    time.sleep(0.5)
+    assert (cells[0].find_element_by_tag_name('input').get_attribute('value') == name)
+    assert (cells[1].find_element_by_tag_name('input').get_attribute('value') == price)
+
+
 def fill_in(name, price, quantity, category):
     # adding a new line and filling out the row
     button.click()
     time.sleep(0.5)
-    tr_s = driver.find_elements_by_xpath('//tr')
+    tr_s = driver.find_elements_by_xpath('//tbody/tr')
     row = tr_s[-1]  # getting the last row added
     cells = row.find_elements_by_tag_name('td')
     cells[0].find_element_by_tag_name('input').send_keys(name)
@@ -68,3 +86,6 @@ time.sleep(0.5)
 search.send_keys(Keys.CONTROL + 'a')
 time.sleep(0.5)
 search.send_keys(Keys.DELETE)
+
+# c) checking the modification of cells modifies the DOM structure
+check_cells('Basilica', '15000000')
