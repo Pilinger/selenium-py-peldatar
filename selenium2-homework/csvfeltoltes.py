@@ -75,3 +75,13 @@ with open('table_in.csv', 'r', encoding='utf-8') as full_csv:  # opening the fil
         for row in csv_reader:
             row_comp = next(csv_compare)
             assert (row == row_comp)
+'''
+        # only for checking purposes
+        print('table_in.csv:')
+        for row in csv_reader:
+            print(row)
+        print()
+        print('...\\download\\table.csv')
+        for row in csv_compare:
+            print(row)
+'''
