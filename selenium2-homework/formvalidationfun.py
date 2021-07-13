@@ -18,8 +18,16 @@ def click_in_and_out(field, message):
     if message != '':
         field.send_keys(message)
         time.sleep(0.5)
-    h3.click()
-    time.sleep(0.5)
+
+
+# asserting error messages
+def asserting_error_messages(field, message):
+    if field.get_attribute('id') == 'test-single-checkbox':  # id not changing
+        assert (driver.find_element_by_id('single-checkbox-invalid').text == message)
+    elif field.get_attribute('id') == 'test-terms-service':  # id not changing
+        assert (driver.find_element_by_id('checkbox-invalid').text == message)
+    else:  # otherwise get the parents parent and the div with the specified class
+        assert (field.find_element_by_xpath('../../div[@class="validate-field-error-message"]').text == message)
 
 
 # initialising driver, starting the docker
@@ -29,8 +37,7 @@ os.system('docker-compose up -d')
 try:
     #  opening the site
     driver.get('http://localhost:9999/simplevalidation.html')
-    # getting the needful fields, checkboxes and the h3
-    h3 = driver.find_element_by_xpath('//h3')
+    # getting the needful fields, checkboxes
     email = driver.find_element_by_id('test-email')
     password = driver.find_element_by_id('test-password')
     conf_pass = driver.find_element_by_id('test-confirm-password')
@@ -66,6 +73,24 @@ try:
     click_in_and_out(exp_year, '')
     click_in_and_out(s_check, '')
     click_in_and_out(terms, '')
+
+    # asserting error messages
+    asserting_error_messages(email, 'Please enter an e-mail')
+    asserting_error_messages(password, "This field can't be empty")
+    asserting_error_messages(conf_pass, 'Please complete Desired Password')
+    asserting_error_messages(cust_num, "This field can't be empty")
+    asserting_error_messages(dealer, "This field can't be empty")
+    asserting_error_messages(random, 'Should contain "twelve"')
+    asserting_error_messages(date, "This field can't be empty")
+    asserting_error_messages(url, 'Please enter a valid URL (starts with "http" or "https")')
+    asserting_error_messages(r_text, "This field can't be empty")
+    asserting_error_messages(card_type, 'Please select a card type')
+    asserting_error_messages(card_num, 'Please enter a credit card number (no spaces)')
+    asserting_error_messages(card_cvv, "This field can't be empty")
+    asserting_error_messages(exp_month, 'Select a month')
+    asserting_error_messages(exp_year, 'Select a year')
+    asserting_error_messages(s_check, "This field can't be empty")
+    asserting_error_messages(terms, 'Please agree to both to continue')
 finally:
     time.sleep(1)
-    # driver.close()
+    driver.close()
